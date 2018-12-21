@@ -90,6 +90,7 @@ namespace Industryconnect
                 Console.WriteLine("Test Failed");
             }
 
+
             //edit the Time and Material that was created
             Thread.Sleep(1000);
             IWebElement edit = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[1]/td[5]/a[1]"));
