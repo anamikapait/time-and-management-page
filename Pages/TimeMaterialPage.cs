@@ -1,44 +1,13 @@
 ﻿using System;
 using System.Threading;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 
-namespace Industryconnect
+namespace Industryconnect.Pages
 {
-    class Program
+    public class TimeMaterialPage
     {
-
-        static void Main(string[] args)
+        public void addTM(IWebDriver driver)
         {
-            //launch browser
-            IWebDriver driver = new ChromeDriver(@"/Users/oiyo/Projects/Industryconnect/Industryconnect/");
-
-            //Enter the url
-            driver.Navigate().GoToUrl("http://horse-dev.azurewebsites.net/Account/Login?ReturnUrl=%2f");
-
-            //Enter the username 
-            IWebElement username = driver.FindElement(By.Id("UserName"));
-            username.SendKeys("hari");
-
-            //Enter the password
-            IWebElement password = driver.FindElement(By.Id("Password"));
-            password.SendKeys("123123");
-
-            //click the login button
-            IWebElement login = driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
-            login.Submit();
-
-            //check the homepage is displayed
-            IWebElement hellohari = driver.FindElement(By.XPath("//*[@id=\"logoutForm\"]/ul/li/a"));
-            if (hellohari.Text == "Hello hari!")
-            {
-                Console.WriteLine("Logged in successfully, Test passed");
-            }
-            else
-            {
-                Console.WriteLine("Login page not seen, Test failed");
-            }
-
             //Navigate to Time and Material page
             IWebElement administration = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
             administration.Click();
@@ -116,10 +85,7 @@ namespace Industryconnect
             IWebElement delete = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[1]/td[5]/a[2]"));
             delete.Click();
             driver.SwitchTo().Alert().Accept();
-            
+
         }
     }
 }
-             
-
-
