@@ -59,9 +59,40 @@ namespace Industryconnect.Pages
                 Console.WriteLine("Test Failed");
             }
 
+        }
 
-            //edit the Time and Material that was created
+        internal void deleteTM(IWebDriver driver)
+        {
+            //Navigate to Time and Material page
+            IWebElement administration = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
+            administration.Click();
+
+            //Click on Time and management
+            IWebElement timeAndManagement = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]"));
+            timeAndManagement.Click();
+
+            //Delete the Time and material first row in the last page
+            IWebElement lastPageButton = driver.FindElement(By.XPath("//*[@title=\"Go to the last page\"]"));
+
+            lastPageButton.Click();
             Thread.Sleep(1000);
+            IWebElement delete = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[1]/td[5]/a[2]"));
+            delete.Click();
+            driver.SwitchTo().Alert().Accept();
+        }
+
+        internal void editTM(IWebDriver driver)
+        {
+            //Navigate to Time and Material page
+            IWebElement administration = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
+            administration.Click();
+
+            //Click on Time and management
+            IWebElement timeAndManagement = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/ul/li[3]"));
+            timeAndManagement.Click();
+            Thread.Sleep(1000);
+
+            //edit the first row of Time and Material
             IWebElement edit = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[1]/td[5]/a[1]"));
             edit.Click();
 
@@ -76,15 +107,6 @@ namespace Industryconnect.Pages
             //Click on save button
             IWebElement save1 = driver.FindElement(By.XPath("//*[@id=\"SaveButton\"]"));
             save1.Click();
-
-            //Delete the Time and material first row in the last page
-            Thread.Sleep(1000);
-            IWebElement lastPageButton = driver.FindElement(By.XPath("//*[@title=\"Go to the last page\"]"));
-
-            lastPageButton.Click();
-            IWebElement delete = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[1]/td[5]/a[2]"));
-            delete.Click();
-            driver.SwitchTo().Alert().Accept();
 
         }
     }
