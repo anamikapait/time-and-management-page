@@ -14,6 +14,8 @@ namespace Industryconnect.Test
             [SetUp]
             public void loginNavigate()
                 {
+                    System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
                     CommonDriver.driver = new ChromeDriver(@"/Users/oiyo/Projects/Industryconnect/Industryconnect/");
 
                     LoginPage LoginObject = new LoginPage();

@@ -1,6 +1,6 @@
 ﻿using System;
+using Industryconnect.Helpers;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 
 namespace Industryconnect.Pages
 {
@@ -8,20 +8,34 @@ namespace Industryconnect.Pages
     {
         public void loginSteps(IWebDriver driver)
         {
+
+            ExcelLibHelpers.PopulateInCollection(@"/Users/oiyo/Projects/Industryconnect/Industryconnect/TestData.xlsx", "LoginPage");
+
             //Enter the url
             driver.Navigate().GoToUrl("http://horse-dev.azurewebsites.net/Account/Login?ReturnUrl=%2f");
 
-            //Enter the username 
-            IWebElement username = driver.FindElement(By.Id("UserName"));
-            username.SendKeys("hari");
+            //Locate Username textbox and enter the username
+            IWebElement Username = driver.FindElement(By.Id("UserName"));
+            Username.SendKeys(ExcelLibHelpers.ReadData(2, "Username"));
 
-            //Enter the password
-            IWebElement password = driver.FindElement(By.Id("Password"));
-            password.SendKeys("123123");
+            //Locate Password textbox and enter the password
+            IWebElement Password = driver.FindElement(By.Id("Password"));
+            Password.SendKeys(ExcelLibHelpers.ReadData(2, "Password"));
 
-            //click the login button
-            IWebElement login = driver.FindElement(By.XPath("//*[@id=\"loginForm\"]/form/div[3]/input[1]"));
-            login.Submit();
+            //Locate the login button and click on it
+            IWebElement Login = driver.FindElement(By.XPath("//*[@id='loginForm']/form/div[3]/input[1]"));
+            Login.Click();
+
+            //Check if the home page is displayed 
+            IWebElement helloHari = driver.FindElement(By.XPath("//*[@id='logoutForm']/ul/li/a"));
+            if (helloHari.Text == "Hello hari!")
+            {
+                Console.WriteLine("Logged in successfully, Test passed");
+            }
+            else
+            {
+                Console.WriteLine("Login page not seen, Test Failed");
+            }
         }
     }
 }

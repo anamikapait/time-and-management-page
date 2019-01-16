@@ -7,6 +7,7 @@ namespace Industryconnect.Pages
     {
         public void navigateToTM(IWebDriver driver)
         {
+
             //check the homepage is displayed
             IWebElement hellohari = driver.FindElement(By.XPath("//*[@id=\"logoutForm\"]/ul/li/a"));
             if (hellohari.Text == "Hello hari!")
