@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Industryconnect.Helpers;
 using OpenQA.Selenium;
 
 namespace Industryconnect.Pages
@@ -8,6 +9,7 @@ namespace Industryconnect.Pages
     {
         public void addTM(IWebDriver driver)
         {
+            ExcelLibHelpers.PopulateInCollection(@"/Users/oiyo/Projects/Industryconnect/Industryconnect/TestData.xlsx", "TimeAndMaterialPage");
             //Navigate to Time and Material page
             IWebElement administration = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
             administration.Click();
@@ -30,15 +32,15 @@ namespace Industryconnect.Pages
 
             //enter code
             IWebElement code = driver.FindElement(By.Id("Code"));
-            code.SendKeys("oiyo1");
+            code.SendKeys(ExcelLibHelpers.ReadData(2, "Code"));
 
             //enter description
             IWebElement description = driver.FindElement(By.Id("Description"));
-            description.SendKeys("ilovemyself");
+            description.SendKeys(ExcelLibHelpers.ReadData(2, "Description"));
 
             //enter price per unit
             IWebElement pricePerUnit = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
-            pricePerUnit.SendKeys("2");
+            pricePerUnit.SendKeys(ExcelLibHelpers.ReadData(2, "Price"));
 
             //Click on save button
             IWebElement save = driver.FindElement(By.XPath("//*[@id=\"SaveButton\"]"));
@@ -48,8 +50,8 @@ namespace Industryconnect.Pages
             Thread.Sleep(1000);
             IWebElement lastPage = driver.FindElement(By.XPath("//*[@title=\"Go to the last page\"]"));
             lastPage.Click();
-            IWebElement codeToCheck = driver.FindElement(By.XPath("//td[text()='oiyo1']"));
-            if (codeToCheck.Text == "oiyo1")
+            IWebElement codeToCheck = driver.FindElement(By.XPath("//td[text()='Oiyo']"));
+            if (codeToCheck.Text == "Oiyo")
             {
                 Console.WriteLine("Time and Management created successfully");
 
@@ -83,6 +85,8 @@ namespace Industryconnect.Pages
 
         internal void editTM(IWebDriver driver)
         {
+            ExcelLibHelpers.PopulateInCollection(@"/Users/oiyo/Projects/Industryconnect/Industryconnect/TestData.xlsx", "TimeAndMaterialPage");
+
             //Navigate to Time and Material page
             IWebElement administration = driver.FindElement(By.XPath("/html/body/div[3]/div/div/ul/li[5]/a"));
             administration.Click();
@@ -99,10 +103,8 @@ namespace Industryconnect.Pages
             //change the description of oiyo1
             IWebElement Description = driver.FindElement(By.XPath("//*[@id=\"Description\"]"));
             Description.Click();
-            IWebElement clearDescription = driver.FindElement(By.XPath("//*[@id=\"Description\"]"));
-            clearDescription.Clear();
-            IWebElement changeDescripton = driver.FindElement(By.XPath("//*[@id=\"Description\"]"));
-            changeDescripton.SendKeys("happyoiyo");
+            Description.Clear();
+            Description.SendKeys(ExcelLibHelpers.ReadData(3, "Description"));
 
             //Click on save button
             IWebElement save1 = driver.FindElement(By.XPath("//*[@id=\"SaveButton\"]"));
