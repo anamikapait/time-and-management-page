@@ -100,7 +100,25 @@ namespace Industryconnect.Pages
             IWebElement edit = driver.FindElement(By.XPath("//*[@id=\"tmsGrid\"]/div[3]/table/tbody/tr[1]/td[5]/a[1]"));
             edit.Click();
 
-            //change the description of oiyo1
+            //change the code
+            IWebElement Code = driver.FindElement(By.Id("Code"));
+            Code.Click();
+            Code.Clear();
+            Code.SendKeys(ExcelLibHelpers.ReadData(3, "Code"));
+
+            //change the price
+            IWebElement Price = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[1]"));
+            Price.Click();
+            IWebElement PriceInput2 = driver.FindElement(By.XPath("//*[@id=\"TimeMaterialEditForm\"]/div/div[4]/div/span[1]/span/input[2]"));
+            PriceInput2.Clear();
+            Price.SendKeys(ExcelLibHelpers.ReadData(3, "Price"));
+
+
+            //Price.Click();
+            //Thread.Sleep(2000);
+            //Price.SendKeys(ExcelLibHelpers.ReadData(3, "Price"));
+           
+            //change the description  
             IWebElement Description = driver.FindElement(By.XPath("//*[@id=\"Description\"]"));
             Description.Click();
             Description.Clear();
